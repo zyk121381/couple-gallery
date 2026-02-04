@@ -64,4 +64,54 @@ const PHOTOS = [
     date: "第一次一起玩雪",
     caption: "你戴着头盔笑得像个大孩子，我那一刻只想继续陪你玩很多很多次。",
   },
+  {
+    file: "dog-cafe-group.jpg",
+    date: "某次猫狗咖啡馆",
+    caption: "一群毛茸茸围着我们转，那天我突然觉得，和你一起的生活也会这么热闹又温暖。",
+  },
+  {
+    file: "dog-cafe-hold.jpg",
+    date: "抱着小毛球的你",
+    caption: "你低头看它的那眼，很温柔，我在旁边看你，也是一样的眼神。",
+  },
+  {
+    file: "night-street-food-2.jpg",
+    date: "夜宵摊的小满足",
+    caption: "你笑着举起串串，我在一旁讲冷笑话，夜风有点冷，但你笑得特别暖。",
+  },
+  {
+    file: "mirror-hug.jpg",
+    date: "镜子里的拥抱",
+    caption: "镜子里是我们拥抱的样子，镜子外是我认真想跟你走很久很久的心。",
+  },
+  {
+    file: "rings-bands.jpg",
+    date: "那天戴上的小戒指",
+    caption: "从这一刻开始，左手的这一圈银色，多了一个“我们”的含义。",
+  },
+  {
+    file: "bumper-pink-1.jpg",
+    date: "粉色碰碰车 1",
+    caption: "你拿着手机拍来拍去，我在一旁看你玩，比自己开车还开心。",
+  },
+  {
+    file: "bumper-pink-2.jpg",
+    date: "粉色碰碰车 2",
+    caption: "你坐在粉色小车上比着手势，那一刻我只想把场地包下来给你一个人玩。",
+  },
+  {
+    file: "heart-hands.jpg",
+    date: "地上的那颗心",
+    caption: "两只手拼成的心看起来有点笨，但里面装的，都是认真。",
+  },
+  {
+    file: "carousel-back.jpg",
+    date: "旋转木马的背影",
+    caption: "你骑着木马往前看，我在后面追着看，觉得这一幕比童话都好看。",
+  },
+  {
+    file: "lakeside-cafe.jpg",
+    date: "湖边的小店",
+    caption: "那家小店其实没什么特别的，但因为那天有你，所以被我记成了“我们的地方”。",
+  },
 ];
