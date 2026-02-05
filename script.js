@@ -13,9 +13,91 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTopBtn = document.getElementById("back-to-top");
   const photoCountEl = document.getElementById("photo-count");
   const loveTimerEl = document.getElementById("love-timer");
+  const categoryNav = document.getElementById("category-nav");
+  const categoryButtons = categoryNav ? categoryNav.querySelectorAll(".category-btn") : [];
+
+  const CATEGORY_MAP = {
+    "flower-field-us.jpg": "confession",
+    "flower-field-us.jpg": "confession",
+    "lake-portrait.jpg": "portrait",
+    "birthday-dinner.jpg": "daily",
+    "scooter-ride.jpg": "daily",
+    "night-shoulders.jpg": "daily",
+    "lake-talk.jpg": "daily",
+    "headphones-night.jpg": "portrait",
+    "field-photo-1.jpg": "portrait",
+    "field-photo-2.jpg": "portrait",
+    "flowers-squat.jpg": "portrait",
+    "flowers-squat-2.jpg": "portrait",
+    "flowers-offer.jpg": "portrait",
+    "lake-ears.jpg": "portrait",
+    "flowers-front-bouquet.jpg": "portrait",
+    "flowers-hair.jpg": "portrait",
+    "sunset-salute.jpg": "portrait",
+    "lake-breath.jpg": "portrait",
+    "lake-coat-front.jpg": "portrait",
+    "lake-coat-front-2.jpg": "portrait",
+    "park-coat-front.jpg": "portrait",
+    "park-coat-grass.jpg": "portrait",
+    "lake-coat-arms.jpg": "portrait",
+    "sunset-tree.jpg": "portrait",
+    "sunset-lake-lean.jpg": "portrait",
+    "sunset-lake-v.jpg": "portrait",
+    "sunset-lake-ok.jpg": "portrait",
+    "sunset-lake-think.jpg": "portrait",
+    "lake-blue.jpg": "portrait",
+    "sunset-tree-2.jpg": "portrait",
+    "flowers-walk-1.jpg": "portrait",
+    "flowers-walk-2.jpg": "portrait",
+    "rock-flowers.jpg": "confession",
+    "sunset-silhouette-1.jpg": "portrait",
+    "sunset-silhouette-2.jpg": "portrait",
+    "bouquet-close-orange-1.jpg": "confession",
+    "bouquet-close-orange-2.jpg": "confession",
+    "street-food.jpg": "daily",
+    "scooter-hands.jpg": "daily",
+    "ski-helmet.jpg": "daily",
+    "dog-cafe-group.jpg": "daily",
+    "dog-cafe-hold.jpg": "daily",
+    "night-street-food-2.jpg": "daily",
+    "mirror-hug.jpg": "confession",
+    "rings-bands.jpg": "confession",
+    "bumper-pink-1.jpg": "daily",
+    "bumper-pink-2.jpg": "daily",
+    "heart-hands.jpg": "confession",
+    "carousel-back.jpg": "portrait",
+    "lakeside-cafe.jpg": "confession",
+    "willow-reflection.jpg": "confession",
+    "bouquet-lake-duck.jpg": "confession",
+    "couple-heart-soft.jpg": "confession",
+    "ring-by-lake.jpg": "confession",
+    "couple-heart-night.jpg": "confession",
+    "letter-reading.jpg": "confession",
+    "couple-heart-pinkboat.jpg": "confession",
+    "hand-in-hand-night.jpg": "confession",
+    "bouquet-cafe-focus.jpg": "confession",
+    "bouquet-cafe-blur.jpg": "confession",
+    "pavilion-hug-2.jpg": "confession",
+    "pavilion-back.jpg": "confession",
+    "swan-boat-back.jpg": "confession",
+    "pavilion-hug.jpg": "confession",
+    "letter-close.jpg": "confession",
+    "bouquet-close.jpg": "confession",
+    "forehead-touch.jpg": "confession",
+    "pavilion-side.jpg": "confession",
+    "white-flowers-tree.jpg": "confession",
+    "sunset-couple-lake.jpg": "confession",
+    "rings-show-lake.jpg": "confession",
+    "hair-fix-night.jpg": "confession"
+  };
+
+  const allPhotos = PHOTOS.map((p) => ({
+    ...p,
+    category: CATEGORY_MAP[p.file] || "daily",
+  }));
 
   let currentIndex = 0;
-  let currentPhotos = [...PHOTOS];
+  let currentPhotos = [...allPhotos];
 
   if (photoCountEl) {
     photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
@@ -34,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
 
-      loveTimerEl.textContent = ` · 在一起 ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds.toString().padStart(2, '0')} 秒`;
+      loveTimerEl.textContent = `在一起 ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds.toString().padStart(2, '0')} 秒`;
     };
 
     updateLoveTimer();
@@ -71,11 +153,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // 随机照片
+  // 随机照片（当前筛选内随机）
   randomBtn.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * PHOTOS.length);
-    currentIndex = randomIndex;
-    openLightbox(currentIndex);
+    if (!currentPhotos.length) return;
+    const randomIndex = Math.floor(Math.random() * currentPhotos.length);
+    openLightbox(randomIndex);
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
@@ -177,4 +259,25 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryEl.appendChild(card);
     imageObserver.observe(img);
   });
+
+  const applyCategory = (category) => {
+    const cards = galleryEl.querySelectorAll(".photo-card");
+    cards.forEach((card, idx) => {
+      const photo = currentPhotos[idx];
+      const pCat = (photo && photo.category) || "daily";
+      const show = category === "all" || pCat === category;
+      card.style.display = show ? "" : "none";
+    });
+  };
+
+  if (categoryButtons.length) {
+    categoryButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        categoryButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const cat = btn.dataset.category || "all";
+        applyCategory(cat);
+      });
+    });
+  }
 });
