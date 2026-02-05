@@ -50,6 +50,11 @@ const PHOTOS = [
     caption: "你蹲在花堆里认真看，我在旁边认真看你，觉得自己赚到了。",
   },
   {
+    file: "flowers-squat-2.jpg",
+    date: "蹲在花田里的小朋友 2",
+    caption: "你又蹲进花堆里，这次我更想记住的是你抬头看我时那一下心动。",
+  },
+  {
     file: "flowers-offer.jpg",
     date: "递给我花的那一下",
     caption: "你伸手把花递给我，我装作很淡定，其实手心都是汗。",
@@ -85,9 +90,19 @@ const PHOTOS = [
     caption: "那天阳光很猛、背景很亮，我一对焦，只剩下你笑着站在那。",
   },
   {
+    file: "lake-coat-front-2.jpg",
+    date: "湖边的米色大衣 2",
+    caption: "同样是站在湖边，这一张多了一点认真，我多了一点舍不得移开视线。",
+  },
+  {
     file: "park-coat-front.jpg",
     date: "公园里的那张正面照",
     caption: "树荫在后面，你站在光里，我那一刻觉得这就是我心里‘很安心’的样子。",
+  },
+  {
+    file: "park-coat-grass.jpg",
+    date: "公园草地上的那一刻",
+    caption: "你在公园的草地边蹲下来对我笑，阳光刚好落在你肩上，我突然觉得这画面好不真实。",
   },
   {
     file: "lake-coat-arms.jpg",
