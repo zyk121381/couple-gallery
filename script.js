@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("lightbox-next");
   const randomBtn = document.getElementById("random-btn");
   const themeToggle = document.getElementById("theme-toggle");
+  const musicToggle = document.getElementById("music-toggle");
   const backToTopBtn = document.getElementById("back-to-top");
   const photoCountEl = document.getElementById("photo-count");
   const loveTimerEl = document.getElementById("love-timer");
   const categoryNav = document.getElementById("category-nav");
   const categoryButtons = categoryNav ? categoryNav.querySelectorAll(".category-btn") : [];
+  const bgMusic = document.getElementById("bg-music");
 
   const CATEGORY_MAP = {
     "flower-field-us.jpg": "portrait",
@@ -100,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
   let currentPhotos = [...allPhotos];
+  let activeCategory = "all";
 
   if (photoCountEl) {
     photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
@@ -148,6 +151,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
   themeToggle.addEventListener("click", toggleTheme);
 
+  // 背景音乐控制
+  function updateMusicToggle(isPlaying) {
+    if (!musicToggle) return;
+    musicToggle.textContent = isPlaying ? "🔊 Only For You" : "🎵 Only For You";
+    musicToggle.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+    musicToggle.classList.toggle("music-on", !!isPlaying);
+  }
+
+  if (bgMusic && musicToggle) {
+    bgMusic.loop = true;
+    let musicPlaying = false;
+    updateMusicToggle(false);
+
+    const attemptPlay = () => {
+      bgMusic.play().then(() => {
+        musicPlaying = true;
+        updateMusicToggle(true);
+      }).catch(() => {
+        // 需要用户手势时，监听下一次点击再自动播放
+        window.addEventListener(
+          "click",
+          () => {
+            bgMusic.play().then(() => {
+              musicPlaying = true;
+              updateMusicToggle(true);
+            }).catch(() => {});
+          },
+          { once: true }
+        );
+      });
+    };
+
+    // 尝试自动播放（可能会被浏览器策略拦截）
+    attemptPlay();
+
+    musicToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicPlaying = false;
+        updateMusicToggle(false);
+      } else {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          updateMusicToggle(true);
+        }).catch(() => {});
+      }
+    });
+  }
+
   // 返回顶部按钮
   window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
@@ -164,8 +217,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // 随机照片（当前筛选内随机）
   randomBtn.addEventListener("click", () => {
     if (!currentPhotos.length) return;
-    const randomIndex = Math.floor(Math.random() * currentPhotos.length);
-    openLightbox(randomIndex);
+
+    let pool = currentPhotos;
+    if (activeCategory !== "all") {
+      pool = currentPhotos.filter((p) => p.category === activeCategory);
+    }
+
+    if (!pool.length) return;
+
+    const randomIndexInPool = Math.floor(Math.random() * pool.length);
+    const randomPhoto = pool[randomIndexInPool];
+    const indexInCurrent = currentPhotos.indexOf(randomPhoto);
+    if (indexInCurrent === -1) return;
+
+    openLightbox(indexInCurrent);
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
@@ -275,6 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const applyCategory = (category) => {
+    activeCategory = category;
     const cards = galleryEl.querySelectorAll(".photo-card");
     cards.forEach((card, idx) => {
       const photo = currentPhotos[idx];

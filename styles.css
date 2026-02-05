@@ -46,6 +46,18 @@ body {
   border-color: #ccc;
 }
 
+/* 背景音乐按钮高亮态 */
+.header-btn.music-on {
+  background: #ffe6f0;
+  border-color: #ff9ac2;
+  color: #d63384;
+}
+body.dark-mode .header-btn.music-on {
+  background: #5b2038;
+  border-color: #ff9ac2;
+  color: #ffd6e8;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
