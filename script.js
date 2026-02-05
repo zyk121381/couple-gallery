@@ -162,29 +162,35 @@ document.addEventListener("DOMContentLoaded", () => {
   if (bgMusic && musicToggle) {
     bgMusic.loop = true;
     let musicPlaying = false;
+    const preferred = localStorage.getItem("bgMusic") || "on"; // 默认开启
     updateMusicToggle(false);
 
-    const attemptPlay = () => {
+    const bindGesturePlay = () => {
+      const handler = () => {
+        bgMusic.play().then(() => {
+          musicPlaying = true;
+          updateMusicToggle(true);
+          localStorage.setItem("bgMusic", "on");
+        }).catch(() => {});
+      };
+      ["click", "touchstart", "keydown"].forEach((evt) => {
+        window.addEventListener(evt, handler, { once: true });
+      });
+    };
+
+    const autoPlayIfPreferred = () => {
+      if (preferred !== "on") return;
       bgMusic.play().then(() => {
         musicPlaying = true;
         updateMusicToggle(true);
       }).catch(() => {
-        // 需要用户手势时，监听下一次点击再自动播放
-        window.addEventListener(
-          "click",
-          () => {
-            bgMusic.play().then(() => {
-              musicPlaying = true;
-              updateMusicToggle(true);
-            }).catch(() => {});
-          },
-          { once: true }
-        );
+        // 需要用户手势时，挂一次全局监听
+        bindGesturePlay();
       });
     };
 
-    // 尝试自动播放（可能会被浏览器策略拦截）
-    attemptPlay();
+    // 打开页面尝试自动播放（可能会被浏览器策略拦截）
+    autoPlayIfPreferred();
 
     musicToggle.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -192,11 +198,15 @@ document.addEventListener("DOMContentLoaded", () => {
         bgMusic.pause();
         musicPlaying = false;
         updateMusicToggle(false);
+        localStorage.setItem("bgMusic", "off");
       } else {
         bgMusic.play().then(() => {
           musicPlaying = true;
           updateMusicToggle(true);
-        }).catch(() => {});
+          localStorage.setItem("bgMusic", "on");
+        }).catch(() => {
+          bindGesturePlay();
+        });
       }
     });
   }
