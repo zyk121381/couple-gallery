@@ -30,6 +30,46 @@ const PHOTOS = [
     caption: "你看着湖，我看着你，很多话没说出口，但我们都懂。",
   },
   {
+    file: "headphones-night.jpg",
+    date: "戴着耳机听歌的你",
+    caption: "那天给你放歌听，你一抬头，我突然觉得：这画面比歌还好听。",
+  },
+  {
+    file: "field-photo-1.jpg",
+    date: "花田里的摄影师和模特 1",
+    caption: "你拿着花看镜头，我端着相机看你，一整片夕阳都在给我们当背景。",
+  },
+  {
+    file: "field-photo-2.jpg",
+    date: "花田里的摄影师和模特 2",
+    caption: "你回头看我的那一眼，让我突然很想把这一天拍成电影。",
+  },
+  {
+    file: "flowers-squat.jpg",
+    date: "蹲在花丛里的小朋友",
+    caption: "你蹲在花堆里认真看，我在旁边认真看你，觉得自己赚到了。",
+  },
+  {
+    file: "flowers-offer.jpg",
+    date: "递给我花的那一下",
+    caption: "你伸手把花递给我，我装作很淡定，其实手心都是汗。",
+  },
+  {
+    file: "lake-ears.jpg",
+    date: "湖边比耳朵",
+    caption: "你举着手在耳朵旁边比来比去，我在想：这么可爱是不是只给我看就好了。",
+  },
+  {
+    file: "flowers-front-bouquet.jpg",
+    date: "花田正面抱花",
+    caption: "你站在一大片花里朝我举着花，我那一刻想的是：以后的每束花都想亲手给你。",
+  },
+  {
+    file: "flowers-hair.jpg",
+    date: "头发上别了一朵花",
+    caption: "你把一朵小花别在头发上，我偷偷记下了那天的光、风和你的笑。",
+  },
+  {
     file: "sunset-tree.jpg",
     date: "某天的日落树下",
     caption: "夕阳刚好拍在你侧脸上，我那一瞬间只剩下一个念头：好想把这一刻收藏起来。",
