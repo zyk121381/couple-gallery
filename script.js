@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateEl = document.getElementById("lightbox-date");
   const captionEl = document.getElementById("lightbox-caption");
   const counterEl = document.getElementById("lightbox-counter");
+  const categoryEl = document.getElementById("lightbox-category");
   const closeBtn = document.getElementById("lightbox-close");
   const prevBtn = document.getElementById("lightbox-prev");
   const nextBtn = document.getElementById("lightbox-next");
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "rings-bands.jpg": "daily",
     "bumper-pink-1.jpg": "daily",
     "bumper-pink-2.jpg": "daily",
-    "heart-hands.jpg": "confession",
+    "heart-hands.jpg": "daily",
     "carousel-back.jpg": "daily",
     "lakeside-cafe.jpg": "confession",
     "willow-reflection.jpg": "confession",
@@ -102,6 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (photoCountEl) {
     photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
   }
+
+  const CATEGORY_LABELS = {
+    confession: '表白',
+    portrait: '写真',
+    daily: '日常',
+  };
 
   if (loveTimerEl) {
     const start = new Date('2025-12-06T17:20:00').getTime();
@@ -168,6 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
     dateEl.textContent = photo.date || "";
     captionEl.textContent = photo.caption || "";
     counterEl.textContent = `${index + 1} / ${currentPhotos.length}`;
+
+    if (categoryEl) {
+      const catKey = photo.category || (CATEGORY_MAP[photo.file] || 'daily');
+      const label = CATEGORY_LABELS[catKey] || '日常';
+      categoryEl.textContent = `类别：${label}`;
+    }
     currentIndex = index;
     lightboxEl.classList.remove("hidden");
   }

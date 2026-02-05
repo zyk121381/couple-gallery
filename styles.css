@@ -349,3 +349,6 @@ body.dark-mode .category-btn.active {
   background: #f5f5f5;
   color: #222;
 }
+
+.lightbox-meta .category { font-size: 12px; color: #999; margin-top: 2px; }
+body.dark-mode .lightbox-meta .category { color: #aaa; }
