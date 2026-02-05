@@ -11,9 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const randomBtn = document.getElementById("random-btn");
   const themeToggle = document.getElementById("theme-toggle");
   const backToTopBtn = document.getElementById("back-to-top");
+  const photoCountEl = document.getElementById("photo-count");
 
   let currentIndex = 0;
   let currentPhotos = [...PHOTOS];
+
+  if (photoCountEl) {
+    photoCountEl.textContent = ` · 共 ${PHOTOS.length} 张照片`;
+  }
 
   // 深色模式
   function toggleTheme() {
