@@ -226,8 +226,8 @@ const PHOTOS = [
   },
   {
     file: "lakeside-cafe.jpg",
-    date: "湖边的小店",
-    caption: "那家小店其实没什么特别的，但因为那天有你，所以被我记成了“我们的地方”。",
+    date: "湖边的那一角风景",
+    caption: "这栋建筑本来只是湖边风景的一部分，但因为那天有你，它在我心里变成了“我们的地方”。",
   },
   {
     file: "willow-reflection.jpg",
